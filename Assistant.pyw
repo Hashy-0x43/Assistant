@@ -3,11 +3,11 @@ import discord
 from discord.ext import commands
 
 
-with open("../../.bot.token", "r") as file:
+with open("../Assistant-Configs/.bot.token", "r") as file:
     TOKEN = file.read()
     file.close()
 
-with open("../../.user.ids", "r") as file:
+with open("../Assistant-Configs/.user.ids", "r") as file:
     allowed_users = file.read()
     file.close()
 
