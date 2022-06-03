@@ -3,22 +3,23 @@ import discord
 from discord.ext import commands
 
 
-with open("../../.Assistant.token", "r") as file:
+with open("../../.bot.token", "r") as file:
     TOKEN = file.read()
     file.close()
 
-hashy_id = 693358577376559115
+with open("../../.user.ids", "r") as file:
+    allowed_users = file.read()
+    file.close()
 
 
-class MyClient(discord.Client):
+class client(discord.Client):
     async def on_ready(self):
         print("Logged on as", self.user)
 
     async def on_message(self, message):
-        if message.author.id == hashy_id:
+        if str(message.author.id) in allowed_users:
             if message.content.startswith("./say "):
                 msg = message.content[6:]
-                print(msg, "X")
                 
                 await message.delete()
 
@@ -26,14 +27,12 @@ class MyClient(discord.Client):
 
             if message.content.startswith("./mention "):
                 id_mention = message.content[10:]
-                print(id_mention, "X")
 
                 await message.delete()
 
                 await message.channel.send(id_mention)
-                
 
 
-client = MyClient()
+client = client()
 client.run(TOKEN)
 
